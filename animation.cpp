@@ -138,48 +138,53 @@ int main(int argc,char* argv[]) {
         string flag= argv[i];
         // cout<<"--->"<<flag;
         
-        if( flag=="--height")
+        if( flag=="-h")
         {
             string h=argv[++i];
             windowHeight=stoi(h);
             
         }
         
-        else if( flag=="--width")
+        else if( flag=="-w")
         { 
             string w=argv[++i];
             windowWidth=stoi(w);
         }
         
-        else if( flag=="--thickness"){
+        else if( flag=="-t"){
             
             string t=argv[++i];
             thickness=stoi(t);
         }
         
-        else if( flag=="--delay_sec"){
+        else if( flag=="-ds"){
             
             string t=argv[++i];
             delay_sec=stod(t);
         }
         
-        else if( flag=="--symbol")
+        else if( flag=="-s")
         {
             string s=argv[++i];
             symbol=s[0];
         }
-        else if(flag=="-inf")
+        else if( flag=="-r")
+        {
+            string s=argv[++i];
+            repeatation=stoi(s);
+        }
+        else if(flag=="--inf")
         {
             inf=true;
         }
         else if( flag=="--help")
         {
-            cout<<"--height :: "<<"specify the height of the window DEFAULT = "<< windowHeight <<endl;
-            cout<<"--width :: "<<"specify the width of the window DEFAULT = "<< windowWidth <<endl;
-            cout<<"--thickness :: "<<"specify the thickness of the circles DEFAULT = "<< thickness <<endl;
-            cout<<"--delay_sec ::"<<"delay time in animation DEFAULT = "<< delay_sec <<endl;
-            cout<<"--symbol ::"<<"character symbol for drawing circle DEFAULT = "<< symbol <<endl;
-            cout<<"-inf ::"<<"run for infinity DEFAULT = "<< inf <<endl;
+            cout<<"-h :: "<<"specify the height of the window DEFAULT = "<< windowHeight <<endl;
+            cout<<"-w :: "<<"specify the width of the window DEFAULT = "<< windowWidth <<endl;
+            cout<<"-t :: "<<"specify the thickness of the circles DEFAULT = "<< thickness <<endl;
+            cout<<"-ds ::"<<"delay time in animation DEFAULT = "<< delay_sec <<endl;
+            cout<<"-s ::"<<"character symbol for drawing circle DEFAULT = "<< symbol <<endl;
+            cout<<"--inf ::"<<"run for infinity DEFAULT = "<< inf <<endl;
             cout<<"--help ::"<<"help section "  <<endl;
             return 0;
         }
