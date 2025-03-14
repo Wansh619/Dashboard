@@ -94,7 +94,7 @@ void create_circle(Grid& grid,int c_x,int c_y, int radius, int thickness, char s
 
 
 void animation(Grid& grid,int c_x,int c_y,int t,int maxRadius,char symbol,double delay_sec){
-    for(register int i=0;i<maxRadius;i++){
+    for( int i=0;i<maxRadius;i++){
         // cout<<"running anim"<<endl;
         create_circle(grid,c_x,c_y, i, t, symbol);
         // cout<<"running circle"<<endl;
@@ -113,7 +113,7 @@ void stream_animation(Grid& grid,int maxRadius,int thickness,int repeatation,cha
     int c_y=grid.size()/2;
     int c_x=grid[0].size()/2;
     
-    for(register int i=0;i<repeatation;i++){
+    for( int i=0;i<repeatation;i++){
         // cout<<"running reps"<<i<<endl;
         animation(grid,c_x,c_y,thickness,maxRadius,symbol,delay_sec);
         // cout<<"run anim"<<endl;
