@@ -93,11 +93,17 @@ void create_circle(Grid& grid,int c_x,int c_y, int radius, int thickness, char s
 
 
 
-void animation(Grid& grid,int c_x,int c_y,int t,int maxRadius,char symbol,double delay_sec){
-    for( int i=0;i<maxRadius;i++){
-        // cout<<"running anim"<<endl;
+void animation(int t,char symbol,double delay_sec){
+    int maxRadius= 1;
+    for( int i=0;i<maxRadius+5;i++){
+        int windowHeight = getSessionHeight()-1;
+        int windowWidth = getSessionWidth()-1;
+        maxRadius=max(windowHeight/2,windowWidth/2);
+        Grid grid(windowHeight, vector<char>(windowWidth, ' '));
+        int c_y=grid.size()/2;
+        int c_x=grid[0].size()/2;
+
         create_circle(grid,c_x,c_y, i, t, symbol);
-        // cout<<"running circle"<<endl;
         print_figure(grid);
         usleep(delay_sec*10000);
         fillGrid(grid,' ');
@@ -108,14 +114,11 @@ void animation(Grid& grid,int c_x,int c_y,int t,int maxRadius,char symbol,double
 }
 
 
-void stream_animation(Grid& grid,int maxRadius,int thickness,int repeatation,char symbol,double delay_sec)
+void stream_animation(int thickness,int repeatation,char symbol,double delay_sec)
 {
-    int c_y=grid.size()/2;
-    int c_x=grid[0].size()/2;
-    
     for( int i=0;i<repeatation;i++){
         // cout<<"running reps"<<i<<endl;
-        animation(grid,c_x,c_y,thickness,maxRadius,symbol,delay_sec);
+        animation(thickness,symbol,delay_sec);
         // cout<<"run anim"<<endl;
     }
     // animation(grid,thickness,maxRadius,symbol,delay_sec);
@@ -124,8 +127,7 @@ void stream_animation(Grid& grid,int maxRadius,int thickness,int repeatation,cha
 
 int main(int argc,char* argv[]) {
     
-    int windowHeight = getSessionHeight()-1;
-    int windowWidth = getSessionWidth()-1;
+
     int repeatation=3;
     int thickness = 5;
     bool inf=false;
@@ -138,20 +140,9 @@ int main(int argc,char* argv[]) {
         string flag= argv[i];
         // cout<<"--->"<<flag;
         
-        if( flag=="-h")
-        {
-            string h=argv[++i];
-            windowHeight=stoi(h);
-            
-        }
+
         
-        else if( flag=="-w")
-        { 
-            string w=argv[++i];
-            windowWidth=stoi(w);
-        }
-        
-        else if( flag=="-t"){
+        if( flag=="-t"){
             
             string t=argv[++i];
             thickness=stoi(t);
@@ -179,8 +170,7 @@ int main(int argc,char* argv[]) {
         }
         else if( flag=="--help")
         {
-            cout<<"-h :: "<<"specify the height of the window DEFAULT = "<< windowHeight <<endl;
-            cout<<"-w :: "<<"specify the width of the window DEFAULT = "<< windowWidth <<endl;
+            cout<<"-r :: "<<"specify the repeatation of the circles DEFAULT = "<< repeatation <<endl;
             cout<<"-t :: "<<"specify the thickness of the circles DEFAULT = "<< thickness <<endl;
             cout<<"-ds ::"<<"delay time in animation DEFAULT = "<< delay_sec <<endl;
             cout<<"-s ::"<<"character symbol for drawing circle DEFAULT = "<< symbol <<endl;
@@ -196,22 +186,19 @@ int main(int argc,char* argv[]) {
         
     }
     
-    int maxRadius =max( windowHeight /2, windowWidth/2 ); 
-    Grid grid(windowHeight, vector<char>(windowWidth, ' '));
     
     if(!inf){
         // cout<<"running stream"<<endl;
-        stream_animation(grid,maxRadius,thickness,repeatation,symbol,delay_sec);
+
+        stream_animation(thickness,repeatation,symbol,delay_sec);
     }
     else{
         cout<<"inf"<<endl;
         while(inf){
-            int c_x= windowWidth /2;
-            int c_y= windowHeight/2;
-            animation( grid,c_x,c_y,thickness, maxRadius, symbol, delay_sec);
+
+            animation(thickness, symbol, delay_sec);
         }
     }
-    print_figure(grid);
     cout<<"\033[0;0H";
     return 0;
     
