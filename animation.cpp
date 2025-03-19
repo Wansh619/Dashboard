@@ -96,7 +96,7 @@ void create_circle(Grid& grid,int c_x,int c_y, int radius, int thickness, char s
 void animation(int t,char symbol,double delay_sec){
     int maxRadius= 1;
     for( int i=0;i<maxRadius+5;i++){
-        int windowHeight = getSessionHeight()-1;
+        int windowHeight = getSessionHeight();
         int windowWidth = getSessionWidth()-1;
         maxRadius=max(windowHeight/2,windowWidth/2);
         Grid grid(windowHeight, vector<char>(windowWidth, ' '));
